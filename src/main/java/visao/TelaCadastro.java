@@ -6,8 +6,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -40,21 +38,19 @@ public class TelaCadastro extends javax.swing.JFrame {
     private int flag;
     BufferedImage imagemGeral;
     tableUsuario t = new tableUsuario();
-   
+
     /**
      * Creates new form TelaCadastro2
      */
     public TelaCadastro() {
 
         initComponents();
-     
+
         jTableUsuarios.setModel(t);
         atualizaTabela("SELECT * FROM Usuarios");
         disposicaoBotoes(1);
         jButtonNovo.setText("Novo");
-        
-        
-       
+
     }
 
     /**
@@ -89,7 +85,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableUsuarios = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro De Usuário");
         setBackground(new java.awt.Color(51, 51, 51));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -363,20 +359,20 @@ public class TelaCadastro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldLoginActionPerformed
 
-    
+
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         String email = jTextFieldEmail.getText();
-       String telefone = jTextFieldTelefone.getText();
+        String telefone = jTextFieldTelefone.getText();
 
-    if (!validaEmail(email)) {
-        JOptionPane.showMessageDialog(null, "Email inválido!");
-        return;
-    }
+        if (!validaEmail(email)) {
+            JOptionPane.showMessageDialog(null, "Email inválido!");
+            return;
+        }
 
-    if (!validaTelefone(telefone)) {
-        JOptionPane.showMessageDialog(null, "Telefone inválido!");
-        return;
-    }
+        if (!validaTelefone(telefone)) {
+            JOptionPane.showMessageDialog(null, "Telefone inválido!");
+            return;
+        }
         if (jTextFieldLogin.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "O campo login está vazio");
             jTextFieldLogin.setBackground(Color.red);
@@ -389,7 +385,6 @@ public class TelaCadastro extends javax.swing.JFrame {
         } else {
             jPasswordFieldSenha.setBackground(Color.white);
         }
-        
 
         if (jTextFieldLogin.getBackground() == Color.white && jPasswordFieldSenha.getBackground() == Color.white) {
             mUsuario.setLogin(jTextFieldLogin.getText());
@@ -397,8 +392,7 @@ public class TelaCadastro extends javax.swing.JFrame {
             mUsuario.setEmail(jTextFieldEmail.getText());
             mUsuario.setBio(jTextArea1.getText());
             mUsuario.setTelefone(jTextFieldTelefone.getText());
-            
-            
+
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
             if (imagemGeral != null) {
@@ -411,16 +405,16 @@ public class TelaCadastro extends javax.swing.JFrame {
             }
 
             if (flag == 1) {
-                    dUsuario.createUsuario(mUsuario);
-                    limpaCampos();
-                    disposicaoBotoes(1);
-                    atualizaTabela("SELECT * FROM Usuarios");
-                    jButtonNovo.setText("Novo");
-               
+                dUsuario.createUsuario(mUsuario);
+                limpaCampos();
+                disposicaoBotoes(1);
+                atualizaTabela("SELECT * FROM Usuarios");
+                jButtonNovo.setText("Novo");
+
             } else {
                 mUsuario.setUsuarioId(Integer.parseInt(jTextFieldID.getText()));
-                    dUsuario.updateUsuario(mUsuario);
-                
+                dUsuario.updateUsuario(mUsuario);
+
                 limpaCampos();
                 disposicaoBotoes(1);
                 atualizaTabela("SELECT * FROM Usuarios"); // Changed "Usuarios" to "Usuario"
@@ -466,9 +460,7 @@ public class TelaCadastro extends javax.swing.JFrame {
                     jTextFieldTelefone.setText(conn.rs.getString("telefone"));
                     jTextFieldEmail.setText(conn.rs.getString("email"));
                     jTextArea1.setText(conn.rs.getString("bio"));
-                 
-                    
-                        
+
                     if (conn.rs.getBytes("imagemPerfil") != null && conn.rs.getBytes("imagemPerfil").length > 0) {
                         byte[] imagemBytes = conn.rs.getBytes("imagemPerfil");
                         ByteArrayInputStream bais = new ByteArrayInputStream(imagemBytes);
@@ -495,37 +487,36 @@ public class TelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordFieldSenhaActionPerformed
 
     private void jTextFieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEmailActionPerformed
-       
+
     }//GEN-LAST:event_jTextFieldEmailActionPerformed
 
     private void jTextFieldTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefoneActionPerformed
-         String telefone = jTextFieldTelefone.getText();
-    if (!telefone.matches("\\(\\d{2}\\) \\d{4}-\\d{4}")) {
-        // Corrigir o formato do TextField
-        if (telefone.length() == 10) {
-            telefone = "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 6) + "-" + telefone.substring(6, 10);
-        } else if (telefone.length() == 11) {
-            telefone = "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 7) + "-" + telefone.substring(7, 11);
-        } else if (telefone.length() > 11) {
-            telefone = telefone.substring(0, 11);
+        String telefone = jTextFieldTelefone.getText();
+        if (!telefone.matches("\\(\\d{2}\\) \\d{4}-\\d{4}")) {
+            // Corrigir o formato do TextField
+            if (telefone.length() == 10) {
+                telefone = "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 6) + "-" + telefone.substring(6, 10);
+            } else if (telefone.length() == 11) {
+                telefone = "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 7) + "-" + telefone.substring(7, 11);
+            } else if (telefone.length() > 11) {
+                telefone = telefone.substring(0, 11);
+            }
+            jTextFieldTelefone.setText(telefone);
         }
-        jTextFieldTelefone.setText(telefone);
-    }
     }//GEN-LAST:event_jTextFieldTelefoneActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
- 
+
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-  
+
     }//GEN-LAST:event_formWindowClosing
 
     private void limparCampos() {
         // Obtém todos os campos do formulário
         Collection<JTextField> camimagemGeralpos = Arrays.asList(jTextFieldLogin, jPasswordFieldSenha, jTextFieldTelefone, jTextFieldEmail);
 
-    
     }
 
     /**
@@ -728,23 +719,24 @@ public class TelaCadastro extends javax.swing.JFrame {
         jLabelImagem.setIcon(null);
         jTextArea1.setText("");
     }
-private boolean validaEmail(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-                            "[a-zA-Z0-9_+&*-]+)*@" +
-                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                            "A-Z]{2,7}$";
-    Pattern emailPat = Pattern.compile(emailRegex);
-    if (email == null) {
-        return false;
-    }
-    return emailPat.matcher(email).matches();
-}
 
-private boolean validaTelefone(String telefone) {
-    if (telefone == null || telefone.length() != 15) {
-        return false;
+    private boolean validaEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+                + "[a-zA-Z0-9_+&*-]+)*@"
+                + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+                + "A-Z]{2,7}$";
+        Pattern emailPat = Pattern.compile(emailRegex);
+        if (email == null) {
+            return false;
+        }
+        return emailPat.matcher(email).matches();
     }
-    return true;
-    
-}
+
+    private boolean validaTelefone(String telefone) {
+        if (telefone == null || telefone.length() != 15) {
+            return false;
+        }
+        return true;
+
+    }
 }

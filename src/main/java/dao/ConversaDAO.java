@@ -15,8 +15,7 @@ import javax.swing.JOptionPane;
 public class ConversaDAO {
 
     public void createConversa(Conversa c) throws SQLException {
-        try (Connection con = conexao.conexao(); 
-             PreparedStatement stmt = con.prepareStatement("INSERT INTO conversas (usuario1_id, usuario2_id, apelido) VALUES (?, ?, ?)")) {
+        try (Connection con = conexao.conexao(); PreparedStatement stmt = con.prepareStatement("INSERT INTO conversas (usuario1_id, usuario2_id, apelido) VALUES (?, ?, ?)")) {
             stmt.setInt(1, c.getUsuario1_id());
             stmt.setInt(2, c.getUsuario2_id());
             stmt.setString(3, c.getApelido());
@@ -33,9 +32,7 @@ public class ConversaDAO {
     public List<Conversa> readConversa() throws SQLException {
         List<Conversa> conversas = new ArrayList<>();
 
-        try (Connection con = conexao.conexao(); 
-             PreparedStatement stmt = con.prepareStatement("SELECT * FROM conversas");
-             ResultSet rs = stmt.executeQuery()) {
+        try (Connection con = conexao.conexao(); PreparedStatement stmt = con.prepareStatement("SELECT * FROM conversas"); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 Conversa c = new Conversa();
@@ -55,8 +52,7 @@ public class ConversaDAO {
     }
 
     public Conversa getConversaById(int conversaId) throws SQLException {
-        try (Connection con = conexao.conexao(); 
-             PreparedStatement stmt = con.prepareStatement("SELECT * FROM conversas WHERE conversa_id = ?")) {
+        try (Connection con = conexao.conexao(); PreparedStatement stmt = con.prepareStatement("SELECT * FROM conversas WHERE conversa_id = ?")) {
             stmt.setInt(1, conversaId);
 
             try (ResultSet rs = stmt.executeQuery()) {
@@ -78,8 +74,7 @@ public class ConversaDAO {
     }
 
     public void updateConversa(Conversa c) throws SQLException {
-        try (Connection con = conexao.conexao(); 
-             PreparedStatement stmt = con.prepareStatement("UPDATE conversas SET usuario1_id = ?, usuario2_id = ?, apelido = ? WHERE conversa_id = ?")) {
+        try (Connection con = conexao.conexao(); PreparedStatement stmt = con.prepareStatement("UPDATE conversas SET usuario1_id = ?, usuario2_id = ?, apelido = ? WHERE conversa_id = ?")) {
             stmt.setInt(1, c.getUsuario1_id());
             stmt.setInt(2, c.getUsuario2_id());
             stmt.setString(3, c.getApelido());
@@ -99,8 +94,7 @@ public class ConversaDAO {
     }
 
     public void deleteConversa(int conversaId) throws SQLException {
-        try (Connection con = conexao.conexao(); 
-             PreparedStatement stmt = con.prepareStatement("DELETE FROM conversas WHERE conversa_id = ?")) {
+        try (Connection con = conexao.conexao(); PreparedStatement stmt = con.prepareStatement("DELETE FROM conversas WHERE conversa_id = ?")) {
             stmt.setInt(1, conversaId);
 
             int rowsAffected = stmt.executeUpdate();
@@ -114,5 +108,25 @@ public class ConversaDAO {
             JOptionPane.showMessageDialog(null, "Erro ao excluir a conversa: " + ex.getMessage());
             throw ex; // Lançar a exceção para tratamento superior
         }
+    }
+
+    public List<Conversa> getAllConversas() {
+        String query = "SELECT * FROM Conversas";
+        List<Conversa> conversas = new ArrayList<>();
+
+        try (Connection con = conexao.conexao(); PreparedStatement preparedStatement = con.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                Conversa conversa = new Conversa();
+                conversa.setConversa_id(resultSet.getInt("conversa_id"));
+                conversa.setUsuario1_id(resultSet.getInt("usuario1_id"));
+                conversa.setUsuario2_id(resultSet.getInt("usuario2_id"));
+                conversa.setApelido(resultSet.getString("apelido"));
+                conversas.add(conversa);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return conversas;
     }
 }

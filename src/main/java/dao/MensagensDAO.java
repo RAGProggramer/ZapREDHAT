@@ -149,4 +149,26 @@ public class MensagensDAO {
             conexao.desconecta(con, stmt);
         }
     }
+
+    public List<Menssagens> getAllMenssagens() {
+        // Define a consulta SQL para obter todos os usuários
+        String query = "SELECT * FROM mensagens";
+        List<Menssagens> Menssagens = new ArrayList<>();
+
+        try (Connection con = conexao.conexao(); PreparedStatement preparedStatement = con.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                Menssagens menssagen = new Menssagens();
+                menssagen.setConversa_id(resultSet.getInt("Conversa_id"));
+                menssagen.setData(resultSet.getDate("data"));
+                menssagen.setHora(resultSet.getTime("hora"));
+                menssagen.setTipo(resultSet.getString("tipo"));
+                menssagen.setStatus(resultSet.getString("status"));
+                Menssagens.add(menssagen);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Menssagens;
+    }
 }

@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author aguia
@@ -16,7 +15,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     conexao conn = new conexao();
     TelaPrincipal t = new TelaPrincipal();
-    
+
     //construtor
     public TelaLogin() {
         initComponents();
@@ -191,9 +190,9 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordFieldPasswordActionPerformed
 
     private void jPasswordFieldPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldPasswordKeyPressed
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Correção aqui
-        jButtonEntrarActionPerformed(null);
-    }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Correção aqui
+            jButtonEntrarActionPerformed(null);
+        }
     }//GEN-LAST:event_jPasswordFieldPasswordKeyPressed
 
     /**
@@ -217,7 +216,7 @@ public class TelaLogin extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
 

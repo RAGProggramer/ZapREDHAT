@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 public class TelaPrincipal extends javax.swing.JFrame {
 
     TelaCadastro TelaC = new TelaCadastro();
-    
+    private boolean cadastroAberto = false;
 
     /**
      * Creates new form TelaPrincipal
@@ -21,8 +21,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTextFieldMensagens.setVisible(false);
         jButtonEnviar.setVisible(false);
-         jButtonMenu.setBounds(3, 15, 2, 14);
-          
+        jButtonMenu.setBounds(3, 15, 2, 14);
+
         ImageIcon icon = new ImageIcon("/storage/RAG/ZapREDHAT/src/IMG/2311531.png");
         java.awt.Image img = icon.getImage();
         jButtonMenu.setSize(50, 50);
@@ -193,9 +193,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMenuActionPerformed
 
     private void jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemActionPerformed
-        TelaC = new TelaCadastro();
-        TelaC.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Adição aqui
-        TelaC.setVisible(true);
+        if (!cadastroAberto) {
+            TelaC = new TelaCadastro();
+            TelaC.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            TelaC.setVisible(true);
+            cadastroAberto = true;
+
+            // Adicione um listener para detectar o fechamento da janela de cadastro
+            TelaC.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    cadastroAberto = false;
+                }
+            });
+        } else {
+            // Se a janela já estiver aberta, traga-a para o topo
+            TelaC.toFront();
+        }
     }//GEN-LAST:event_jMenuItemActionPerformed
 
     private void jPopupMenuPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuPopupMenuWillBecomeVisible

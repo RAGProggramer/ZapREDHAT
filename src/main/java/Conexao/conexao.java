@@ -1,4 +1,3 @@
-
 package Conexao;
 
 import java.sql.Connection;
@@ -23,8 +22,8 @@ public class conexao {
     public static String user = "root";
     public static String pass = "CariocaAK.47";
     public static Connection con;
-    public static Statement stam; 
-    public static ResultSet rs; 
+    public static Statement stam;
+    public static ResultSet rs;
 
     public conexao() {
 
@@ -87,5 +86,4 @@ public class conexao {
         }
     }
 
-  
 }
