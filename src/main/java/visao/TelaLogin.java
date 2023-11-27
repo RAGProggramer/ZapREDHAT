@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class TelaLogin extends javax.swing.JFrame {
 
     conexao conn = new conexao();
-    TelaPrincipal t = new TelaPrincipal();
+
 
     //construtor
     public TelaLogin() {
@@ -60,6 +60,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabelLogin.setText("LOGIN");
 
         jTextFieldUser.setBackground(new java.awt.Color(153, 153, 153));
+        jTextFieldUser.setText("RAG");
         jTextFieldUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldUserActionPerformed(evt);
@@ -71,6 +72,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabelStatus.setText("SEJA BEM VINDO! ");
 
         jPasswordFieldPassword.setBackground(new java.awt.Color(102, 102, 102));
+        jPasswordFieldPassword.setText("123456789");
         jPasswordFieldPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldPasswordActionPerformed(evt);
@@ -167,12 +169,14 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void jButtonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntrarActionPerformed
         if (jTextFieldUser.getText().equals("admin") && jPasswordFieldPassword.getText().equals("200517")) {
+            TelaPrincipal t = new TelaPrincipal(0,"" );
             t.setVisible(true);
             this.dispose();
         } else {
-            conn.executaSQL("SELECT LOGIN, SENHA FROM Usuarios WHERE LOGIN = '" + jTextFieldUser.getText() + "' AND SENHA = '" + jPasswordFieldPassword.getText() + "'");
+            conn.executaSQL("SELECT USUARIO_ID, LOGIN, SENHA FROM Usuarios WHERE LOGIN = '" + jTextFieldUser.getText() + "' AND SENHA = '" + jPasswordFieldPassword.getText() + "'");
             try {
                 if (conn.rs.next()) {
+                    TelaPrincipal t = new TelaPrincipal(conn.rs.getInt("usuario_id"),jTextFieldUser.getText() );
                     t.setVisible(true);
                     this.dispose();
                 } else {

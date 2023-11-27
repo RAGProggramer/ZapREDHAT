@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package modal;
 
-import java.sql.Time;
 import java.util.Date;
+import java.sql.Time;
 
 /**
  *
@@ -50,19 +47,7 @@ public class Menssagens {
         this.data = data;
     }
 
-    /**
-     * @return the hora
-     */
-    public Time getHora() {
-        return hora;
-    }
-
-    /**
-     * @param hora the hora to set
-     */
-    public void setHora(Time hora) {
-        this.hora = hora;
-    }
+  
 
     /**
      * @return the tipo
@@ -119,6 +104,20 @@ public class Menssagens {
     public void setConversa_id(int conversa_id) {
         this.conversa_id = conversa_id;
     }
+  
+    /**
+     * @return the hora
+     */
+    public Time getHora() {
+        return hora;
+    }
+
+    /**
+     * @param hora the hora to set
+     */
+    public void setHora(Time hora) {
+        this.hora = hora;
+    }
 
     /**
      * @return the remetente_id
@@ -134,11 +133,7 @@ public class Menssagens {
         this.remetente_id = remetente_id;
     }
 
-    public void setRemetenteId(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setMensagemId(int aInt) {
+    public void setData(String formattedDate) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
             

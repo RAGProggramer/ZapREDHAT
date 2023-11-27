@@ -4,24 +4,53 @@ import Conexao.conexao;
 import modal.Menssagens;
 
 import java.sql.Connection;
-import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 public class MensagensDAO {
 
+    Menssagens m = new Menssagens();
+
+    public void createMensagensTable() throws SQLException {
+        // Define o SQL para criar a tabela "Mensagems" com colunas específicas
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS Mensagens ("
+                + "mensagem_id INT AUTO_INCREMENT PRIMARY KEY,"
+                + "conversa_id INT NOT NULL,"
+                + "remetente_id INT NOT NULL,"
+                + "tipo VARCHAR(25) NOT NULL,"
+                + "conteudo VARCHAR(250) NOT NULL,"
+                + "data Date,"
+                + "status VARCHAR(25),"
+                + "hora time,"
+                + "FOREING KEY (conversa_id) REFERENCES Conversas(conversa_id)"
+                + "FOREING KEY (remetente_id) REFERENCES Usuarios(usuario_id)"
+                + ")";
+        Connection con = conexao.conexao();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(createTableSQL);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "########: " + ex);
+            System.out.println(ex);
+        } finally {
+            conexao.desconecta(con, stmt);
+        }
+    }
+
     public void create(Menssagens m) throws SQLException {
         Connection con = conexao.conexao();
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO Mensagens (data, hora, tipo, conteudo, status, conversa_id, remetente_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            stmt.setDate(1, (Date) m.getData());
+            createMensagensTable();
+
+            stmt = con.prepareStatement("INSERT INTO `mensagens`(data, hora, tipo, conteudo, status, conversa_id, remetente_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            stmt.setDate(1, new java.sql.Date(m.getData().getTime()));
             stmt.setTime(2, m.getHora());
             stmt.setString(3, m.getTipo());
             stmt.setString(4, m.getConteudo());
@@ -32,7 +61,7 @@ public class MensagensDAO {
 
             JOptionPane.showMessageDialog(null, "Mensagem enviada com sucesso");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao enviar mensagem: " + ex);
+            JOptionPane.showMessageDialog(null, "@!Erro ao enviar mensagem: " + ex);
             System.out.println(ex);
         } finally {
             conexao.desconecta(con, stmt);
@@ -51,8 +80,8 @@ public class MensagensDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Menssagens m = new Menssagens();
-                m.setMensagemId(rs.getInt("mensagem_id"));
+
+                m.setMensagem_id(rs.getInt("mensagem_id"));
                 m.setData(rs.getDate("data"));
                 m.setHora(rs.getTime("hora"));
                 m.setTipo(rs.getString("tipo"));
@@ -84,8 +113,8 @@ public class MensagensDAO {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Menssagens m = new Menssagens();
-                m.setMensagemId(rs.getInt("mensagem_id"));
+
+                m.setMensagem_id(rs.getInt("mensagem_id"));
                 m.setData(rs.getDate("data"));
                 m.setHora(rs.getTime("hora"));
                 m.setTipo(rs.getString("tipo"));
@@ -112,7 +141,7 @@ public class MensagensDAO {
 
         try {
             stmt = con.prepareStatement("UPDATE Mensagens SET data = ?, hora = ?, tipo = ?, conteudo = ?, status = ?, conversa_id = ?, remetente_id = ? WHERE mensagem_id = ?");
-            stmt.setDate(1, (Date) m.getData());
+            stmt.setDate(1, new java.sql.Date(m.getData().getTime()));
             stmt.setTime(2, m.getHora());
             stmt.setString(3, m.getTipo());
             stmt.setString(4, m.getConteudo());
