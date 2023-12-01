@@ -29,7 +29,7 @@ public class ConversaDAO {
         }
     }
 
-    public List<Conversa> readConversa() throws SQLException {
+    public List<Conversa> readConversas() throws SQLException {
         List<Conversa> conversas = new ArrayList<>();
 
         try (Connection con = conexao.conexao(); PreparedStatement stmt = con.prepareStatement("SELECT * FROM conversas"); ResultSet rs = stmt.executeQuery()) {
@@ -51,7 +51,7 @@ public class ConversaDAO {
         return conversas;
     }
 
-    public Conversa getConversaById(int conversaId) throws SQLException {
+    public Conversa getConversasById(int conversaId) throws SQLException {
         try (Connection con = conexao.conexao(); PreparedStatement stmt = con.prepareStatement("SELECT * FROM conversas WHERE conversa_id = ?")) {
             stmt.setInt(1, conversaId);
 

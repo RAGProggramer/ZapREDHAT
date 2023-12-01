@@ -1,7 +1,7 @@
 package dao;
 
 import Conexao.conexao;
-import modal.Menssagens;
+import modal.Mensagem;
 
 import java.sql.Connection;
 
@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class MensagensDAO {
+public class MensagemDAO {
 
-    Menssagens m = new Menssagens();
+    Mensagem m = new Mensagem();
 
     public void createMensagensTable() throws SQLException {
         // Define o SQL para criar a tabela "Mensagems" com colunas específicas
@@ -42,7 +42,7 @@ public class MensagensDAO {
         }
     }
 
-    public void create(Menssagens m) throws SQLException {
+    public void createMensagem(Mensagem m) throws SQLException {
         Connection con = conexao.conexao();
         PreparedStatement stmt = null;
 
@@ -68,12 +68,12 @@ public class MensagensDAO {
         }
     }
 
-    public List<Menssagens> readMensagens() throws SQLException {
+    public List<Mensagem> readMensagens() throws SQLException {
         Connection con = conexao.conexao();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<Menssagens> mensagens = new ArrayList<>();
+        List<Mensagem> mensagens = new ArrayList<>();
 
         try {
             stmt = con.prepareStatement("SELECT * FROM Mensagens");
@@ -102,7 +102,7 @@ public class MensagensDAO {
         return mensagens;
     }
 
-    public Menssagens getMensagensById(int mensagemId) throws SQLException {
+    public Mensagem getMensagensById(int mensagemId) throws SQLException {
         Connection con = conexao.conexao();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -135,7 +135,7 @@ public class MensagensDAO {
         return null;
     }
 
-    public void updateMensagens(Menssagens m) throws SQLException {
+    public void updateMensagem(Mensagem m) throws SQLException {
         Connection con = conexao.conexao();
         PreparedStatement stmt = null;
 
@@ -161,7 +161,7 @@ public class MensagensDAO {
         }
     }
 
-    public void deleteMensagens(int mensagemId) throws SQLException {
+    public void deleteMensagem(int mensagemId) throws SQLException {
         Connection con = conexao.conexao();
         PreparedStatement stmt = null;
 
@@ -179,14 +179,14 @@ public class MensagensDAO {
         }
     }
 
-    public List<Menssagens> getAllMenssagens() {
+    public List<Mensagem> getAllMensagens() {
         // Define a consulta SQL para obter todos os usuários
         String query = "SELECT * FROM mensagens";
-        List<Menssagens> Menssagens = new ArrayList<>();
+        List<Mensagem> Menssagens = new ArrayList<>();
 
         try (Connection con = conexao.conexao(); PreparedStatement preparedStatement = con.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                Menssagens menssagen = new Menssagens();
+                Mensagem menssagen = new Mensagem();
                 menssagen.setConversa_id(resultSet.getInt("Conversa_id"));
                 menssagen.setData(resultSet.getDate("data"));
                 menssagen.setHora(resultSet.getTime("hora"));

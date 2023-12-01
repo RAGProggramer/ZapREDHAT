@@ -8,7 +8,7 @@ import java.sql.Time;
  *
  * @author aguia
  */
-public class Menssagens {
+public class Mensagem {
 
   private int mensagem_id;
     private Date data;	

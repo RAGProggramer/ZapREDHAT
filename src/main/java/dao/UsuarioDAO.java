@@ -63,7 +63,7 @@ public class UsuarioDAO {
         }
     }
 
-    public Usuario getUsuarioById(int usuarioId) {
+    public Usuario getUsuariosById(int usuarioId) {
         // Define a consulta SQL para obter um usuário por ID
         String query = "SELECT * FROM Usuarios WHERE usuario_id = ?";
         
