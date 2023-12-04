@@ -59,7 +59,7 @@ public class MensagemDAO {
             stmt.setInt(7, m.getRemetente_id());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Mensagem enviada com sucesso");
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "@!Erro ao enviar mensagem: " + ex);
             System.out.println(ex);

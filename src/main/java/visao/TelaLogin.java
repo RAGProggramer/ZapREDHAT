@@ -60,7 +60,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabelLogin.setText("LOGIN");
 
         jTextFieldUser.setBackground(new java.awt.Color(153, 153, 153));
-        jTextFieldUser.setText("RAG");
+        jTextFieldUser.setText("raph");
         jTextFieldUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldUserActionPerformed(evt);
@@ -72,7 +72,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabelStatus.setText("SEJA BEM VINDO! ");
 
         jPasswordFieldPassword.setBackground(new java.awt.Color(102, 102, 102));
-        jPasswordFieldPassword.setText("123456789");
+        jPasswordFieldPassword.setText("123");
         jPasswordFieldPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldPasswordActionPerformed(evt);

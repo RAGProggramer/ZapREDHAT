@@ -14,6 +14,30 @@ import javax.swing.JOptionPane;
 
 public class ConversaDAO {
 
+    public void createConversaTable() {
+        // Define o SQL para criar a tabela "Usuarios" com colunas específicas
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS Conversas ("
+                + "conversa_id INT AUTO_INCREMENT PRIMARY KEY,"
+                + "usuario1_id INT NOT NULL,"
+                + "usuario2_id INT NOT NULL,"
+                + "apelido VARCHAR(50)"
+                + "FOREING KEY (usuario1_id) REFERENCES Usuarios(usuario_id)"
+                + "FOREING KEY (usuario2_id) REFERENCES Usuarios(usuario_id)"
+                + ")";
+
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try {
+            con = conexao.conexao();
+            stmt = con.prepareStatement(createTableSQL);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            conexao.desconecta(con, stmt);
+        }
+    }
     public void createConversa(Conversa c) throws SQLException {
         try (Connection con = conexao.conexao(); PreparedStatement stmt = con.prepareStatement("INSERT INTO conversas (usuario1_id, usuario2_id, apelido) VALUES (?, ?, ?)")) {
             stmt.setInt(1, c.getUsuario1_id());

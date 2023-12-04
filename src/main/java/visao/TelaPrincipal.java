@@ -54,7 +54,7 @@ import java.util.*;
  * @author RAG
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    
+
     TelaCadastro TelaC = new TelaCadastro();
     private boolean cadastroAberto = false;
     Conversa mConversa = new Conversa();
@@ -64,7 +64,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     conexao conn = new conexao();
     int idUsuario;
     Map<String, String> usuarioNomes = new HashMap<>();
-    
+
     int idConversa = 0;
     String loginUsuario, nomeUsuarioSelecionado, mensagem = "", mensagemNova;
     private int lastSelectedIndex = -1;
@@ -83,18 +83,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         this.loginUsuario = login;
         ImageIcon icon = new ImageIcon("/storage/RAG/ZapREDHAT/src/IMG/2311531.png");
         java.awt.Image img = icon.getImage();
-        jButtonMenu.setSize(50, 50);
+        jButtonMenu.setSize(30, 30);
         java.awt.Image newimg = img.getScaledInstance(jButtonMenu.getWidth(), jButtonMenu.getHeight(), java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
         // Atribua o ícone ao botão
         jButtonMenu.setIcon(icon);
         jButtonMenu.repaint();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
     }
 
     /**
@@ -109,13 +109,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPopupMenu = new javax.swing.JPopupMenu();
         jMenuItem = new javax.swing.JMenuItem();
         jMenuItemLogout = new javax.swing.JMenuItem();
-        jPanelPrincipal = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jPanelConversa = new javax.swing.JPanel();
-        jPanelMenssagens = new javax.swing.JPanel();
         jLabelMenssagem = new javax.swing.JLabel();
+        jButtonMenu = new javax.swing.JButton();
         jButtonEnviar = new javax.swing.JButton();
         jTextFieldMensagens = new javax.swing.JTextField();
-        jButtonMenu = new javax.swing.JButton();
 
         jPopupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -145,23 +144,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chat");
+        setBackground(new java.awt.Color(51, 51, 51));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jPanelPrincipal.setBackground(new java.awt.Color(51, 51, 51));
-        jPanelPrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanelPrincipal.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setForeground(new java.awt.Color(102, 102, 102));
 
         jPanelConversa.setBackground(new java.awt.Color(51, 51, 51));
         jPanelConversa.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Conversas", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Hack Nerd Font", 1, 24), new java.awt.Color(204, 204, 204))); // NOI18N
+        jPanelConversa.setForeground(new java.awt.Color(102, 102, 102));
 
         javax.swing.GroupLayout jPanelConversaLayout = new javax.swing.GroupLayout(jPanelConversa);
         jPanelConversa.setLayout(jPanelConversaLayout);
         jPanelConversaLayout.setHorizontalGroup(
             jPanelConversaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 286, Short.MAX_VALUE)
+            .addGap(0, 292, Short.MAX_VALUE)
         );
         jPanelConversaLayout.setVerticalGroup(
             jPanelConversaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 529, Short.MAX_VALUE)
         );
 
         jLabelMenssagem.setToolTipText("");
@@ -174,16 +175,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanelMenssagensLayout = new javax.swing.GroupLayout(jPanelMenssagens);
-        jPanelMenssagens.setLayout(jPanelMenssagensLayout);
-        jPanelMenssagensLayout.setHorizontalGroup(
-            jPanelMenssagensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelMenssagem, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
-        );
-        jPanelMenssagensLayout.setVerticalGroup(
-            jPanelMenssagensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelMenssagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-        );
+        jButtonMenu.setForeground(new java.awt.Color(51, 51, 51));
+        jButtonMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMenuActionPerformed(evt);
+            }
+        });
 
         jButtonEnviar.setBackground(new java.awt.Color(51, 51, 51));
         jButtonEnviar.setText("Enviar");
@@ -206,61 +203,58 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButtonMenu.setForeground(new java.awt.Color(51, 51, 51));
-        jButtonMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMenuActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
-        jPanelPrincipal.setLayout(jPanelPrincipalLayout);
-        jPanelPrincipalLayout.setHorizontalGroup(
-            jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
-                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelPrincipalLayout.createSequentialGroup()
-                        .addComponent(jPanelConversa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanelMenssagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPrincipalLayout.createSequentialGroup()
-                                .addComponent(jTextFieldMensagens, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(12, 12, 12))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 315, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelMenssagem, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTextFieldMensagens, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanelConversa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(746, Short.MAX_VALUE)))
         );
-        jPanelPrincipalLayout.setVerticalGroup(
-            jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelConversa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jButtonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelMenssagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jButtonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelMenssagem, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldMensagens, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanelConversa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(1054, 601));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldMensagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMensagensActionPerformed
@@ -275,7 +269,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
         mandarMensagem();
-        
+
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
@@ -305,8 +299,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPopupMenuPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuPopupMenuWillBecomeVisible
         jMenuItem = new javax.swing.JMenuItem();
-        jMenuItem.addActionListener(this::jMenuItemActionPerformed);
-        jPopupMenu.add(jMenuItem);
 
     }//GEN-LAST:event_jPopupMenuPopupMenuWillBecomeVisible
 
@@ -321,9 +313,352 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabelMenssagemAncestorResized
 
-    /**
-     * @param args the command line arguments
-     */
+    public void atualizaMensagens() throws SQLException {
+        trataConversa(mensagem);
+    }
+
+    private void trataConversa(String conversa) {
+        List<String> mensagens = extrairMensagem(conversa);
+        usuarioNomes.put("1", "<html><b>" + loginUsuario + "</b>");
+        usuarioNomes.put("2", "<html><b>" + nomeUsuarioSelecionado + "</b>");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat titleFormat = new SimpleDateFormat("d 'de' MMMM", new Locale("pt", "BR"));
+
+        JPanel panelMensagens = new JPanel();
+        panelMensagens.setLayout(new BoxLayout(panelMensagens, BoxLayout.Y_AXIS));
+
+        if (mensagens.isEmpty()) {
+            jLabelMenssagem.removeAll();
+            jLabelMenssagem.setLayout(new BorderLayout());
+            JLabel labelVazio = new JLabel("A conversa está vazia.");
+            labelVazio.setHorizontalAlignment(SwingConstants.CENTER);
+            jLabelMenssagem.add(labelVazio, BorderLayout.CENTER);
+            revalidate(); // Atualiza o layout da janela
+            repaint(); // Repinta a janela
+            setVisible(true);
+        } else {
+            String dataAnterior = null;
+            for (String mensagem : mensagens) {
+                String dataMensagem = extrairDataMensagem(mensagem);
+                try {
+                    Date dateM = dateFormat.parse(dataMensagem);
+                    String tituloDia = titleFormat.format(dateM);
+                    String horaMinutos = new SimpleDateFormat("HH:mm").format(dateM); // Formata apenas a hora e os minutos
+
+                    if (!Objects.equals(dataAnterior, tituloDia)) {
+                        JLabel labelTitulo = new JLabel("<html><div style='text-align: center; font-weight: bold;'>" + tituloDia + "</div></html>");
+                        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER); // Configura o alinhamento horizontal para centralizar
+                        panelMensagens.add(labelTitulo);
+
+                        dataAnterior = tituloDia;
+                    }
+
+                    String nomeRemetente = extrairNomeRemetente(mensagem);
+                    String soMensagens = extrairMensagens(mensagem);
+                    String mensagemFormatada = mensagem;
+                    if (nomeRemetente != null) {
+                        String cssClass = nomeRemetente.equals(loginUsuario) ? "user-1" : (nomeRemetente.equals(nomeUsuarioSelecionado) ? "user-2" : "");
+                        String cssStyle = "<style>"
+                                + ".user-1 { text-align: right; }"
+                                + ".user-2 { text-align: left; }"
+                                + ".chat-message { display: flex; flex-direction: column; margin: 8px; }"
+                                + ".chat-name { font-weight: bold; margin-bottom: 4px; }"
+                                + ".chat-text { background-color: #DCF8C6; padding: 8px; border-radius: 8px; margin-bottom: 4px; width: 200px; overflow-y: auto; }"
+                                + ".chat-time { font-size: 10px; color: #999; }"
+                                + "</style>";
+
+                        // Adicione o estilo CSS ao seu JLabel
+                        mensagemFormatada = "<html>" + cssStyle + "<div class='chat-message " + cssClass + "'>"
+                                + "<div class='chat-name'>" + nomeRemetente + "</div>"
+                                + "<div class='chat-text'>" + soMensagens + "</div>"
+                                + "<div class='chat-time'>" + horaMinutos + "</div>"
+                                + "</div></html>";
+                    }
+                    JLabel label = new JLabel(mensagemFormatada);
+                    label.setBackground(Color.DARK_GRAY);
+                    label.setOpaque(true);
+
+                    if (nomeRemetente != null && nomeRemetente.equals(usuarioNomes.get("1"))) {
+                        label.setHorizontalAlignment(SwingConstants.RIGHT);
+                        label.setForeground(Color.DARK_GRAY);
+                    } else if (nomeRemetente != null) {
+                        label.setHorizontalAlignment(SwingConstants.LEFT);
+                        label.setForeground(Color.DARK_GRAY);
+                    }
+                    panelMensagens.add(label);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            JScrollPane scrollPane = new JScrollPane(panelMensagens);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+            jLabelMenssagem.removeAll();
+            jLabelMenssagem.setLayout(new BorderLayout());
+            jLabelMenssagem.add(scrollPane, BorderLayout.CENTER);
+
+            // Deixa o ScrollBar no máximo para baixo
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+                    verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+                    scrollPane.revalidate();
+                    scrollPane.repaint();
+                }
+            });
+            // FIM
+            revalidate(); // Atualiza o layout da janela
+            repaint(); // Repinta a janela
+            setVisible(true);
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        atualizaMensagens();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            };
+            timer.schedule(task, 0, 5000);
+        }
+
+    }
+
+    private void adicionaBotoesUsuarios(int idUsuario) throws IOException {
+        // Configura o layout vertical.
+        jPanelConversa.setLayout(new BoxLayout(jPanelConversa, BoxLayout.Y_AXIS));
+
+        List<JButton> buttons = new ArrayList<>();
+        conn.executaSQL("SELECT * FROM `Usuarios` WHERE usuario_id <> " + idUsuario);
+
+        try {
+            while (conn.rs.next()) {
+
+                String nome = conn.rs.getString("login");
+                String id = conn.rs.getString("Usuario_id");
+                String nomeTotal = id + " - " + nome;
+                BufferedImage imagem = null;
+
+                if (conn.rs.getBytes("imagemPerfil") != null && conn.rs.getBytes("imagemPerfil").length > 0) {
+                    byte[] imagemBytes = conn.rs.getBytes("imagemPerfil");
+                    ByteArrayInputStream bais = new ByteArrayInputStream(imagemBytes);
+                    imagem = ImageIO.read(bais);
+                }
+
+                // Cria o botão
+                JButton button = new JButton(nomeTotal);
+                button.setPreferredSize(new Dimension(200, 80));
+
+                // Configura o estilo do botão
+                button.setBackground(new Color(51, 255, 0)); // Verde do WhatsApp
+                button.setForeground(Color.BLACK);
+
+                // Fonte do texto
+                Font font = new Font("Arial", Font.BOLD, 16);
+                button.setFont(font);
+
+                // Borda arredondada
+                button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+                button.setFocusPainted(false); // Remove o contorno de foco
+                // Define um ícone da imagem do usuário (se disponível)
+                if (imagem != null) {
+                    Image scaledImage = imagem.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+                    button.setIcon(new ImageIcon(scaledImage));
+                }
+
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JButton clickedButton = (JButton) e.getSource();
+                        String buttonText = clickedButton.getText();
+                        String[] partes = buttonText.split("-");
+
+                        if (partes.length >= 2) {
+                            String nome = partes[1].trim();
+                            jLabelMenssagem.setText(buttonText);
+                            nomeUsuarioSelecionado = nome;
+                            conversa(buttonText, String.valueOf(idUsuario));
+                        }
+                    }
+                });
+
+                buttons.add(button);
+                usuarioNomes.put(id, nome);
+            }
+            jLabelMenssagem.setText(buttons.get(0).getText());
+            for (JButton button : buttons) {
+                jPanelConversa.add(button);
+            }
+
+            jPanelConversa.setVisible(true);
+            jPanelConversa.revalidate(); // Use revalidate() em vez de repaint() para atualizar o layout.
+            conn.rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void conversa(String usuario, String idUsuario) {
+        mensagem = "";
+        String[] partes = usuario.split("-");
+        String idUsuarioSelecionado = partes[0].trim();
+
+        conn.executaSQL("SELECT * FROM conversas WHERE (usuario1_id = " + idUsuario
+                + " AND usuario2_id = " + idUsuarioSelecionado + ") OR (usuario1_id = " + idUsuarioSelecionado
+                + " AND usuario2_id = " + idUsuario + ");");
+
+        try {
+            if (conn.rs.next()) {
+                idConversa = conn.rs.getInt("CONVERSA_ID");
+
+                mConversa = dConversa.getConversasById(idConversa);
+
+                conn.executaSQL("SELECT * FROM mensagens WHERE CONVERSA_ID = " + idConversa + ";");
+
+                while (conn.rs.next()) {
+                    mensagem = mensagem + conn.rs.getString("conteudo") + " " + conn.rs.getDate("data") + " " + conn.rs.getTime("hora") + "\n";
+
+                }
+                trataConversa(mensagem);
+            } else {
+                Conversa mConversa = new Conversa();
+                mConversa.setUsuario1_id(Integer.parseInt(idUsuario));
+                mConversa.setUsuario2_id(Integer.parseInt(idUsuarioSelecionado));
+                mConversa.setApelido(loginUsuario);
+
+                dConversa.createConversa(mConversa);
+
+                // Now retrieve the newly created conversation ID
+                conn.executaSQL("SELECT CONVERSA_ID FROM Conversas WHERE usuario1_id = " + idUsuario
+                        + " AND usuario2_id = " + idUsuarioSelecionado + ";");
+
+                if (conn.rs.next()) {
+                    idConversa = conn.rs.getInt("CONVERSA_ID");
+                }
+
+                trataConversa(mensagem);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private String extrairMensagens(String conversa) {
+        StringBuilder mensagens = new StringBuilder();
+
+        Pattern pattern = Pattern.compile("<b>.*?</b>:<br>(.*?)<br>\\(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\)", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(conversa);
+
+        while (matcher.find()) {
+            String mensagem = matcher.group(1).trim();
+            mensagens.append(mensagem).append("\n"); // Adiciona a mensagem ao StringBuilder
+        }
+
+        return mensagens.toString();
+    }
+
+    private String extrairNomeRemetente(String mensagem) {
+        // Use uma expressão regular para extrair o nome do remetente
+        // A expressão regular assume que o nome do remetente é seguido por ":" na mensagem.
+        Pattern pattern = Pattern.compile("<b>(.*?)</b>:");
+        Matcher matcher = pattern.matcher(mensagem);
+
+        if (matcher.find()) {
+            // O grupo 1 da expressão regular contém o nome do remetente
+            return "<html><b>" + matcher.group(1).trim() + "</b>";
+        }
+
+        // Retorna null se não for possível extrair o nome do remetente.
+        return null;
+    }
+
+    private String extrairDataMensagem(String mensagem) {
+        Pattern pattern = Pattern.compile("\\((.*?)\\)");
+        Matcher matcher = pattern.matcher(mensagem);
+
+        if (matcher.find()) {
+            // O grupo 1 da expressão regular contém a data
+            return matcher.group(1);
+
+        } else {
+            System.out.println("Data não encontrada na mensagem.");
+        }
+        return null;
+    }
+
+    private List<String> extrairMensagem(String conversa) {
+        List<String> mensagens = new ArrayList<>();
+
+        // Use uma expressão regular para encontrar mensagens na string com nomes de remetentes e timestamps
+        Pattern pattern = Pattern.compile("([A-Za-z ]+): (.*?)(?: (\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}))?$", Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(conversa);
+
+        while (matcher.find()) {
+            String nomeRemetente = matcher.group(1);
+            String mensagem = matcher.group(2);
+            String data = matcher.group(3);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat dateFormat2 = new SimpleDateFormat("d 'de' MMMM", new Locale("pt", "BR"));
+
+            // Substitua o nome do remetente pelo nome do usuário correspondente
+            if (usuarioNomes.containsKey(nomeRemetente)) {
+
+                mensagem = mensagem.replace(nomeRemetente + ":", usuarioNomes.get(nomeRemetente) + ":");
+            }
+
+            mensagens.add("<html><b>" + nomeRemetente + "</b>:<br>" + mensagem + "<br>(" + data + ")");
+
+        }
+        return mensagens;
+    }
+
+    private void mandarMensagem() {
+        if (jTextFieldMensagens.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O campo mensagem não pode ser em branco");
+        } else {
+            LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+            String dataFormatada = agora.format(formatoData);
+            String horaFormatada = agora.format(formatoHora);
+            String dataHoraFormatada = dataFormatada + " " + horaFormatada;
+
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                java.util.Date dataParseada = formato.parse(dataHoraFormatada);
+                Time hora = new Time(dataParseada.getTime());
+
+                mMenssagens = new Mensagem();
+                mMenssagens.setConteudo(loginUsuario + ": " + jTextFieldMensagens.getText());
+                mMenssagens.setHora(hora);
+                mMenssagens.setData(new java.util.Date());
+                mConversa.setApelido(loginUsuario);
+                mMenssagens.setRemetente_id(idUsuario);
+                mMenssagens.setConversa_id(mConversa.getConversa_id());
+
+                try {
+                    dMensagens.createMensagem(mMenssagens);
+                    mensagemNova = mMenssagens.getConteudo() + " " + dataHoraFormatada + "\n";
+                    mensagem += mensagemNova;
+                    trataConversa(mensagem);
+
+                    jTextFieldMensagens.setText("");  // Define o texto como vazio após recuperar o conteúdo
+
+                    // Agora você pode usar 'dataFormatada', 'hora', e 'conteudo' conforme necessário.
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -361,354 +696,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelMenssagem;
     private javax.swing.JMenuItem jMenuItem;
     private javax.swing.JMenuItem jMenuItemLogout;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelConversa;
-    private javax.swing.JPanel jPanelMenssagens;
-    private javax.swing.JPanel jPanelPrincipal;
     private javax.swing.JPopupMenu jPopupMenu;
     private javax.swing.JTextField jTextFieldMensagens;
     // End of variables declaration//GEN-END:variables
 
-    public void atualizaMensagens() throws SQLException {
-        
-    }
-    
-    private void trataConversa(String conversa) {
-        List<String> mensagens = extrairMensagem(conversa);
-        usuarioNomes.put("1", "<html><b>" + loginUsuario + "</b>");
-        usuarioNomes.put("2", "<html><b>" + nomeUsuarioSelecionado + "</b>");
-        
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat titleFormat = new SimpleDateFormat("d 'de' MMMM", new Locale("pt", "BR"));
-        
-        JPanel panelMensagens = new JPanel();
-        panelMensagens.setLayout(new BoxLayout(panelMensagens, BoxLayout.Y_AXIS));
-        
-        if (mensagens.isEmpty()) {
-            jPanelMenssagens.removeAll();
-            jPanelMenssagens.setLayout(new BorderLayout());
-            JLabel labelVazio = new JLabel("A conversa está vazia.");
-            labelVazio.setHorizontalAlignment(SwingConstants.CENTER);
-            jPanelMenssagens.add(labelVazio, BorderLayout.CENTER);
-            revalidate(); // Atualiza o layout da janela
-            repaint(); // Repinta a janela
-            setVisible(true);
-        } else {
-            String dataAnterior = null;
-            for (String mensagem : mensagens) {
-                String dataMensagem = extrairDataMensagem(mensagem);
-                try {
-                    Date dateM = dateFormat.parse(dataMensagem);
-                    String tituloDia = titleFormat.format(dateM);
-                    String horaMinutos = new SimpleDateFormat("HH:mm").format(dateM); // Formata apenas a hora e os minutos
-
-                    if (!Objects.equals(dataAnterior, tituloDia)) {
-                        JLabel labelTitulo = new JLabel("<html><div style='text-align: center; font-weight: bold;'>" + tituloDia + "</div></html>");
-                        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER); // Configura o alinhamento horizontal para centralizar
-                        panelMensagens.add(labelTitulo);
-                        
-                        dataAnterior = tituloDia;
-                    }
-                    
-                    String nomeRemetente = extrairNomeRemetente(mensagem);
-                    String soMensagens = extrairMensagens(mensagem);
-                    String mensagemFormatada = mensagem;
-                    if (nomeRemetente != null) {
-                        String cssStyle = "<style>"
-                                + ".chat-message { display: flex; flex-direction: column; margin: 8px; }"
-                                + ".chat-name { font-weight: bold; margin-bottom: 4px; }"
-                                + ".chat-text { background-color: #DCF8C6; padding: 8px; border-radius: 8px; margin-bottom: 4px;width: 200px;overflow-y: auto;  }"
-                                + ".chat-time { font-size: 10px; color: #999; }"
-                                + "</style>";
-
-                        // Adicione o estilo CSS ao seu JLabel
-                        mensagemFormatada = "<html>" + cssStyle + "<div class='chat-message'>"
-                                + "<div class='chat-name'>" + nomeRemetente + "</div>"
-                                + "<div class='chat-text'>" + soMensagens + "</div>"
-                                + "<div class='chat-time'>" + horaMinutos + "</div>"
-                                + "</div></html>";
-                    }
-                    JLabel label = new JLabel(mensagemFormatada);
-                    label.setBackground(Color.LIGHT_GRAY);
-                    label.setOpaque(true);
-                    
-                    if (nomeRemetente != null && nomeRemetente.equals(usuarioNomes.get("1"))) {
-                        label.setHorizontalAlignment(SwingConstants.RIGHT);
-                        label.setForeground(Color.DARK_GRAY);
-                    } else if (nomeRemetente != null && nomeRemetente.equals(usuarioNomes.get("2"))) {
-                        label.setHorizontalAlignment(SwingConstants.LEFT);
-                        label.setForeground(Color.DARK_GRAY);
-                    }
-                    panelMensagens.add(label);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-             JScrollPane scrollPane = new JScrollPane(panelMensagens);
-            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-            jPanelMenssagens.removeAll();
-            jPanelMenssagens.setLayout(new BorderLayout());
-            jPanelMenssagens.add(scrollPane, BorderLayout.CENTER);
-
-            // Deixa o ScrollBar no máximo para baixo
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
-                    verticalScrollBar.setValue(verticalScrollBar.getMaximum());
-                    scrollPane.revalidate();
-                    scrollPane.repaint();
-                }
-            });
-             // FIM
-            revalidate(); // Atualiza o layout da janela
-            repaint(); // Repinta a janela
-            setVisible(true);
-            Timer timer = new Timer();
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                    try {
-                        atualizaMensagens();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            };
-            timer.schedule(task, 0, 5000);
-        }
-        
-    }
-    
-    private void adicionaBotoesUsuarios(int idUsuario) throws IOException {
-        // Configura o layout vertical.
-        jPanelConversa.setLayout(new BoxLayout(jPanelConversa, BoxLayout.Y_AXIS));
-        
-        List<JButton> buttons = new ArrayList<>();
-        conn.executaSQL("SELECT * FROM `Usuarios` WHERE usuario_id <> " + idUsuario);
-        
-        try {
-            while (conn.rs.next()) {
-                
-                String nome = conn.rs.getString("login");
-                String id = conn.rs.getString("Usuario_id");
-                String nomeTotal = id + " - " + nome;
-                BufferedImage imagem = null;
-                
-                if (conn.rs.getBytes("imagemPerfil") != null && conn.rs.getBytes("imagemPerfil").length > 0) {
-                    byte[] imagemBytes = conn.rs.getBytes("imagemPerfil");
-                    ByteArrayInputStream bais = new ByteArrayInputStream(imagemBytes);
-                    imagem = ImageIO.read(bais);
-                }
-
-                // Cria o botão
-                JButton button = new JButton(nomeTotal);
-                button.setPreferredSize(new Dimension(100, 50));
-
-                // Configura o estilo do botão
-                button.setBackground(new Color(255, 0, 0)); // Verde do WhatsApp
-                button.setForeground(Color.BLACK);
-
-                // Fonte do texto
-                Font font = new Font("Arial", Font.BOLD, 16);
-                button.setFont(font);
-
-                // Borda arredondada
-                button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-                button.setFocusPainted(false); // Remove o contorno de foco
-                // Define um ícone da imagem do usuário (se disponível)
-                if (imagem != null) {
-                    Image scaledImage = imagem.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-                    button.setIcon(new ImageIcon(scaledImage));
-                }
-                
-                button.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        JButton clickedButton = (JButton) e.getSource();
-                        String buttonText = clickedButton.getText();
-                        String[] partes = buttonText.split("-");
-                        
-                        if (partes.length >= 2) {
-                            String nome = partes[1].trim();
-                            jLabelMenssagem.setText(buttonText);
-                            nomeUsuarioSelecionado = nome;
-                            conversa(buttonText, String.valueOf(idUsuario));
-                        }
-                    }
-                });
-                
-                buttons.add(button);
-                usuarioNomes.put(id, nome);
-            }
-            jLabelMenssagem.setText(buttons.get(0).getText());
-            for (JButton button : buttons) {
-                jPanelConversa.add(button);
-            }
-            
-            jPanelConversa.setVisible(true);
-            jPanelConversa.revalidate(); // Use revalidate() em vez de repaint() para atualizar o layout.
-            conn.rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private void conversa(String usuario, String idUsuario) {
-        mensagem = "";
-        String[] partes = usuario.split("-");
-        String idUsuarioSelecionado = partes[0].trim();
-        
-        conn.executaSQL("SELECT * FROM conversas WHERE (usuario1_id = " + idUsuario
-                + " AND usuario2_id = " + idUsuarioSelecionado + ") OR (usuario1_id = " + idUsuarioSelecionado
-                + " AND usuario2_id = " + idUsuario + ");");
-        
-        try {
-            if (conn.rs.next()) {
-                idConversa = conn.rs.getInt("CONVERSA_ID");
-                
-                mConversa = dConversa.getConversasById(idConversa);
-                
-                conn.executaSQL("SELECT * FROM mensagens WHERE CONVERSA_ID = " + idConversa + ";");
-                
-                while (conn.rs.next()) {
-                    mensagem = mensagem + loginUsuario+": "+ conn.rs.getString("conteudo") + " " + conn.rs.getDate("data") + " " + conn.rs.getTime("hora") + "\n";
-                    
-                    
-                }
-                trataConversa(mensagem);
-            } else {
-                Conversa mConversa = new Conversa();
-                mConversa.setUsuario1_id(Integer.parseInt(idUsuario));
-                mConversa.setUsuario2_id(Integer.parseInt(idUsuarioSelecionado));
-                mConversa.setApelido(loginUsuario);
-                
-                dConversa.createConversa(mConversa);
-
-                // Now retrieve the newly created conversation ID
-                conn.executaSQL("SELECT CONVERSA_ID FROM Conversas WHERE usuario1_id = " + idUsuario
-                        + " AND usuario2_id = " + idUsuarioSelecionado + ";");
-                
-                if (conn.rs.next()) {
-                    idConversa = conn.rs.getInt("CONVERSA_ID");
-                }
-                
-                trataConversa(mensagem);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private String extrairMensagens(String conversa) {
-        StringBuilder mensagens = new StringBuilder();
-        
-        Pattern pattern = Pattern.compile("<b>.*?</b>:<br>(.*?)<br>\\(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\)", Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(conversa);
-        
-        while (matcher.find()) {
-            String mensagem = matcher.group(1).trim();
-            mensagens.append(mensagem).append("\n"); // Adiciona a mensagem ao StringBuilder
-        }
-        
-        return mensagens.toString();
-    }
-    
-    private String extrairNomeRemetente(String mensagem) {
-        // Use uma expressão regular para extrair o nome do remetente
-        // A expressão regular assume que o nome do remetente é seguido por ":" na mensagem.
-        Pattern pattern = Pattern.compile("<b>(.*?)</b>:");
-        Matcher matcher = pattern.matcher(mensagem);
-        
-        if (matcher.find()) {
-            // O grupo 1 da expressão regular contém o nome do remetente
-            return "<html><b>" + matcher.group(1).trim() + "</b>";
-        }
-
-        // Retorna null se não for possível extrair o nome do remetente.
-        return null;
-    }
-    
-    private String extrairDataMensagem(String mensagem) {
-        Pattern pattern = Pattern.compile("\\((.*?)\\)");
-        Matcher matcher = pattern.matcher(mensagem);
-        
-        if (matcher.find()) {
-            // O grupo 1 da expressão regular contém a data
-            return matcher.group(1);
-            
-        } else {
-            System.out.println("Data não encontrada na mensagem.");
-        }
-        return null;
-    }
-    
-    private List<String> extrairMensagem(String conversa) {
-        List<String> mensagens = new ArrayList<>();
-
-        // Use uma expressão regular para encontrar mensagens na string com nomes de remetentes e timestamps
-        Pattern pattern = Pattern.compile("([A-Za-z ]+): (.*?)(?: (\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}))?$", Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(conversa);
-        
-        while (matcher.find()) {
-            String nomeRemetente = matcher.group(1);
-            String mensagem = matcher.group(2);
-            String data = matcher.group(3);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            SimpleDateFormat dateFormat2 = new SimpleDateFormat("d 'de' MMMM", new Locale("pt", "BR"));
-
-            // Substitua o nome do remetente pelo nome do usuário correspondente
-            if (usuarioNomes.containsKey(nomeRemetente)) {
-                
-                mensagem = mensagem.replace(nomeRemetente + ":", usuarioNomes.get(nomeRemetente) + ":");
-            }
-            
-            mensagens.add("<html><b>" + nomeRemetente + "</b>:<br>" + mensagem + "<br>(" + data + ")");
-            
-        }
-        return mensagens;
-    }
-    
-    private void mandarMensagem() {
-        if (jTextFieldMensagens.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "O campo mensagem não pode ser em branco");
-        } else {
-            LocalDateTime agora = LocalDateTime.now();
-            DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm:ss");
-            
-            String dataFormatada = agora.format(formatoData);
-            String horaFormatada = agora.format(formatoHora);
-            String dataHoraFormatada = dataFormatada + " " + horaFormatada;
-            
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            try {
-                java.util.Date dataParseada = formato.parse(dataHoraFormatada);
-                Time hora = new Time(dataParseada.getTime());
-                
-                mMenssagens = new Mensagem();
-                mMenssagens.setConteudo(jTextFieldMensagens.getText());
-                mMenssagens.setHora(hora);
-                mMenssagens.setData(new java.util.Date());
-                mConversa.setApelido(loginUsuario);
-                mMenssagens.setRemetente_id(idUsuario);
-                mMenssagens.setConversa_id(mConversa.getConversa_id());
-                
-                try {
-                    dMensagens.createMensagem(mMenssagens);
-                    mensagemNova = idUsuario + ": " + mMenssagens.getConteudo() + " " + dataHoraFormatada + "\n";
-                    mensagem += mMenssagens.getConteudo();
-                    System.out.println(mensagem);
-                    trataConversa(mensagemNova);
-                    jTextFieldMensagens.setText("");  // Define o texto como vazio após recuperar o conteúdo
-
-                    // Agora você pode usar 'dataFormatada', 'hora', e 'conteudo' conforme necessário.
-                } catch (SQLException ex) {
-                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    
 }

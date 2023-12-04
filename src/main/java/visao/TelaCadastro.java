@@ -327,17 +327,18 @@ public class TelaCadastro extends javax.swing.JFrame {
             .addGroup(jPanelMenssagem1Layout.createSequentialGroup()
                 .addGroup(jPanelMenssagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelMenssagem1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPaneltFieldTelaCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jPanelMenssagem1Layout.createSequentialGroup()
                         .addGap(116, 116, 116)
                         .addComponent(jButtonNovo)
                         .addGap(80, 80, 80)
                         .addComponent(jButtonCancelar)
                         .addGap(80, 80, 80)
-                        .addComponent(jButtonSalvar))
-                    .addGroup(jPanelMenssagem1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPaneltFieldTelaCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                        .addComponent(jButtonSalvar)
+                        .addGap(27, 27, 27)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -356,7 +357,7 @@ public class TelaCadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLoginActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextFieldLoginActionPerformed
 
 
@@ -669,7 +670,6 @@ public class TelaCadastro extends javax.swing.JFrame {
 
                 // Adicione a linha à tabela
                 t.addRow(modalQ);
-                System.out.println(modalQ);
             }
             conn.rs.close();
         } catch (SQLException ex) {

@@ -20,7 +20,7 @@ public class UsuarioDAO {
                 + "telefone VARCHAR(15),"
                 + "email VARCHAR(100),"
                 + "bio TEXT,"
-                + "imagemPerfil VARCHAR(255),"
+                + "imagemPerfil longblob,"
                 + "tema VARCHAR(50)"
                 + ")";
 
