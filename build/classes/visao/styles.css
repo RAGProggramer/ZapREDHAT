@@ -1,0 +1,15 @@
+/* styles.css */
+.button {
+    -fx-background-color: #fff; /* Cor de fundo */
+    -fx-background-radius: 50px; /* Borda arredondada */
+    -fx-padding: 5px 10px; /* Espaçamento interno */
+    -fx-text-fill: white; /* Cor do texto */
+    -fx-font-weight: bold; /* Texto em negrito */
+    -fx-font-size: 14px; /* Tamanho da fonte */
+    -fx-alignment: baseline-left; /* Alinhamento do texto à esquerda */
+    -fx-content-display: right; /* Ícone à direita do texto */
+}
+
+.button:hover {
+    -fx-background-color: #128C7E; /* Cor de fundo ao passar o mouse */
+}
